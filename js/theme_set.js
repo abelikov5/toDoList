@@ -11,6 +11,14 @@ const ThemeSet = {
 		'--botton-hover': '#7f2222'}
 };
 
+/* check if Local Storage has ThemeToDo to aply theme on load app */
+if (localStorage.getItem('ThemeToDo')) {
+    var locaStorTheme = JSON.parse(localStorage.getItem('ThemeToDo'));
+    ThemeSetFunc(locaStorTheme.theme);
+}
+
+
+
 const typeOfTheme = document.getElementById('themeSet');
 
 typeOfTheme.addEventListener('change', function(e) {
@@ -21,11 +29,10 @@ function ThemeSetFunc(themeName) {
    
     const curentTheme = ThemeSet[themeName];
     
-    for (var key in curentTheme) {
-        document.documentElement.style.setProperty(key, curentTheme[key]);
-    }
+    for (var key in curentTheme) document.documentElement.style.setProperty(key, curentTheme[key]);
 
-    // console.log(curentTheme);
-    // document.documentElement.style.setProperty('--main-color', '#212529');
+    var localStorTheme = {};
+    localStorTheme.theme = themeName;
+    localStorage.setItem('ThemeToDo', JSON.stringify(localStorTheme));
 
 }
